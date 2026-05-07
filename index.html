@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShopNest — Premium Online Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="topbar">Free shipping on orders above ₹999 · Use code <strong>NEST20</strong> for 20% off</div>
+
+<nav>
+  <div class="nav-logo">ShopNest</div>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('shop')">Shop</a>
+    <a href="#" onclick="showPage('search')">Search</a>
+    <a href="#" onclick="showPage('deals')">Deals</a>
+    <a href="#" onclick="showPage('about')">About</a>
+  </div>
+  <div class="nav-actions">
+    <span class="nav-user-info" id="nav-username"></span>
+    <button onclick="showPage('search')">🔍 Search</button>
+    <button onclick="showPage('cart')">🛒 Cart <span class="cart-badge" id="cart-count">0</span></button>
+    <button onclick="toggleAccount()" id="account-btn">👤 Account</button>
+  </div>
+</nav>
+
+<!-- ===== HOME ===== -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow">New Collection 2024</div>
+      <div class="hero-title">Discover <span>Premium</span><br>Products for<br>Every Lifestyle</div>
+      <div class="hero-desc">Curated selection of electronics, fashion, and home goods. Fast delivery, easy returns, and exceptional quality guaranteed.</div>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('shop')">Shop Now</button>
+        <button class="btn-outline" onclick="showPage('deals')">View Deals</button>
+      </div>
+    </div>
+    <div class="hero-img">
+      <div class="hero-img-grid">
+        <div class="hero-img-card">📱<span>Electronics</span></div>
+        <div class="hero-img-card">👗<span>Fashion</span></div>
+        <div class="hero-img-card">🏠<span>Home</span></div>
+        <div class="hero-img-card">⌚<span>Accessories</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Featured Products</div>
+      <a class="section-link" href="#" onclick="showPage('shop')">View all →</a>
+    </div>
+    <div class="product-grid" id="home-products"></div>
+  </div>
+
+  <div class="section" style="background:var(--bg2);margin:0 -40px;padding:60px 80px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center">
+      <div><div style="font-size:36px;margin-bottom:12px">🚚</div><div style="font-weight:600;margin-bottom:6px">Free Shipping</div><div style="color:var(--text2);font-size:13px">On all orders above ₹999</div></div>
+      <div><div style="font-size:36px;margin-bottom:12px">🔄</div><div style="font-weight:600;margin-bottom:6px">Easy Returns</div><div style="color:var(--text2);font-size:13px">30-day hassle-free returns</div></div>
+      <div><div style="font-size:36px;margin-bottom:12px">🔒</div><div style="font-weight:600;margin-bottom:6px">Secure Payment</div><div style="color:var(--text2);font-size:13px">100% protected transactions</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Best Sellers</div>
+      <a class="section-link" href="#" onclick="showPage('shop')">See more →</a>
+    </div>
+    <div class="product-grid" id="bestseller-products"></div>
+  </div>
+</div>
+
+<!-- ===== SHOP ===== -->
+<div id="page-shop" class="page">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">All Products</div>
+    </div>
+    <div class="product-grid" id="shop-products"></div>
+  </div>
+</div>
+
+<!-- ===== DEALS ===== -->
+<div id="page-deals" class="page">
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Today's Deals</div>
+    </div>
+    <div class="product-grid" id="deals-products"></div>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<div id="page-about" class="page">
+  <div style="max-width:700px;margin:60px auto;padding:0 40px">
+    <h1 style="font-family:'Playfair Display',serif;font-size:36px;margin-bottom:16px">About ShopNest</h1>
+    <p style="color:var(--text2);line-height:1.8;margin-bottom:16px">ShopNest was founded in 2019 with a simple mission: make premium products accessible to everyone. We curate the finest electronics, fashion, and lifestyle products from trusted brands worldwide.</p>
+    <p style="color:var(--text2);line-height:1.8;margin-bottom:16px">Our team of experts handpick every product in our catalog, ensuring quality and value. With over 50,000 happy customers and a 4.8-star average rating, we're committed to excellence.</p>
+    <p style="color:var(--text2);line-height:1.8">Headquartered in Bangalore, India, we ship to every corner of the country with same-day delivery available in major cities.</p>
+  </div>
+</div>
+
+<!-- ===== SEARCH ===== -->
+<div id="page-search" class="page">
+  <div class="search-wrap">
+    <h1 style="font-family:'Playfair Display',serif;font-size:28px;margin-bottom:24px">Search Products</h1>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search for products, brands, categories...">
+      <button onclick="doSearch()">Search</button>
+    </div>
+    <div id="search-info" class="search-info"></div>
+    <div class="search-results-grid" id="search-results"></div>
+  </div>
+</div>
+
+<!-- ===== PRODUCT DETAIL ===== -->
+<div id="page-product" class="page">
+  <div class="product-detail" id="product-detail-content"></div>
+  <div class="reviews-section">
+    <h2>Customer Reviews</h2>
+    <div id="product-reviews"></div>
+    <div class="review-form">
+      <h3>Write a Review</h3>
+      <div class="form-group"><label>Your Name</label><input type="text" id="review-name" placeholder="e.g. Rahul Sharma"></div>
+      <div class="form-group"><label>Review</label><textarea id="review-text" placeholder="Share your experience with this product..."></textarea></div>
+      <button class="form-btn" onclick="submitReview()" style="width:auto;padding:10px 24px">Post Review</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CART ===== -->
+<div id="page-cart" class="page">
+  <div class="cart-wrap">
+    <h1>Your Cart</h1>
+    <div id="cart-items"></div>
+    <div id="cart-summary"></div>
+  </div>
+</div>
+
+<!-- ===== CHECKOUT ===== -->
+<div id="page-checkout" class="page">
+  <div style="max-width:600px;margin:0 auto;padding:40px">
+    <h1 style="font-family:'Playfair Display',serif;font-size:28px;margin-bottom:28px">Checkout</h1>
+    <div id="checkout-msg" class="msg"></div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="checkout-name" placeholder="Your full name"></div>
+    <div class="form-group"><label>Email</label><input type="email" id="checkout-email" placeholder="your@email.com"></div>
+    <div class="form-group"><label>Address</label><textarea id="checkout-addr" placeholder="Delivery address"></textarea></div>
+    <div class="form-group"><label>Coupon Code</label><input type="text" id="coupon-code" placeholder="Enter coupon code"></div>
+    <!-- VULNERABLE: hidden price fields that can be tampered -->
+    <input type="hidden" id="order-total" value="">
+    <input type="hidden" id="order-discount" value="0">
+    <button class="form-btn" onclick="placeOrder()">Place Order</button>
+  </div>
+</div>
+
+<!-- ===== ORDER SUCCESS ===== -->
+<div id="page-ordersuccess" class="page">
+  <div class="order-success">
+    <div class="checkmark">✅</div>
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for shopping with ShopNest.</p>
+    <p style="color:var(--text3)">Order ID: <span id="order-id"></span></p>
+    <button class="btn-primary" onclick="showPage('home')" style="margin-top:24px">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- ===== LOGIN ===== -->
+<div id="page-login" class="page">
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <h2>Welcome back</h2>
+      <p>Sign in to your ShopNest account</p>
+      <div id="login-msg" class="msg"></div>
+      <div class="form-group"><label>Username or Email</label><input type="text" id="login-user" placeholder="Enter username or email" autocomplete="off"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="login-pass" placeholder="Enter password"></div>
+      <div style="text-align:right;margin:-8px 0 16px"><a href="#" onclick="showPage('forgot')" style="font-size:13px;color:var(--accent)">Forgot password?</a></div>
+      <button class="form-btn" onclick="doLogin()">Sign In</button>
+      <div class="auth-switch">Don't have an account? <a href="#" onclick="showPage('register')">Create one</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REGISTER ===== -->
+<div id="page-register" class="page">
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <h2>Create account</h2>
+      <p>Join ShopNest for exclusive deals and fast checkout</p>
+      <div id="reg-msg" class="msg"></div>
+      <div class="form-group"><label>Full Name</label><input type="text" id="reg-name" placeholder="Your full name"></div>
+      <div class="form-group"><label>Username</label><input type="text" id="reg-user" placeholder="Choose a username"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="reg-email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>Password</label><input type="password" id="reg-pass" placeholder="At least 8 characters"></div>
+      <button class="form-btn" onclick="doRegister()">Create Account</button>
+      <div class="auth-switch">Already have an account? <a href="#" onclick="showPage('login')">Sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FORGOT PASSWORD ===== -->
+<div id="page-forgot" class="page">
+  <div class="auth-wrap">
+    <div class="auth-box">
+      <h2>Reset Password</h2>
+      <p>Enter your username to receive a reset token</p>
+      <div id="forgot-msg" class="msg"></div>
+      <div class="form-group"><label>Username</label><input type="text" id="forgot-user" placeholder="Your username"></div>
+      <button class="form-btn" onclick="doForgot()">Send Reset Token</button>
+      <div id="reset-token-section" style="display:none;margin-top:20px">
+        <div class="divider"></div>
+        <div class="form-group"><label>Reset Token</label><input type="text" id="reset-token-input" placeholder="Enter token from email"></div>
+        <div class="form-group"><label>New Password</label><input type="password" id="reset-newpass" placeholder="New password"></div>
+        <button class="form-btn" onclick="doResetPassword()">Reset Password</button>
+      </div>
+      <div class="auth-switch"><a href="#" onclick="showPage('login')">← Back to Sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ACCOUNT ===== -->
+<div id="page-account" class="page">
+  <div class="account-wrap">
+    <div class="account-sidebar">
+      <div class="account-avatar" id="acc-avatar"></div>
+      <div class="account-name" id="acc-name"></div>
+      <div class="account-email" id="acc-email"></div>
+      <div class="account-menu">
+        <a href="#" class="active" onclick="showAccountSection('profile')">👤 Profile</a>
+        <a href="#" onclick="showAccountSection('orders')">📦 Orders</a>
+        <a href="#" onclick="showAccountSection('password')">🔒 Change Password</a>
+        <a href="#" onclick="doLogout()" style="color:var(--red)">↩ Sign Out</a>
+      </div>
+    </div>
+    <div class="account-main">
+      <div id="acc-section-profile">
+        <h2>My Profile</h2>
+        <div id="account-msg" class="msg"></div>
+        <!-- IDOR: user_id is editable (inspect element) -->
+        <input type="hidden" id="profile-user-id">
+        <div class="profile-grid">
+          <div class="form-group"><label>Full Name</label><input type="text" id="profile-name" placeholder="Full name"></div>
+          <div class="form-group"><label>Username</label><input type="text" id="profile-username" placeholder="Username"></div>
+          <div class="form-group"><label>Email</label><input type="email" id="profile-email" placeholder="Email"></div>
+          <div class="form-group"><label>Phone</label><input type="text" id="profile-phone" placeholder="Phone number"></div>
+        </div>
+        <div class="form-group"><label>Address</label><textarea id="profile-addr" rows="3" placeholder="Delivery address"></textarea></div>
+        <button class="btn-primary" onclick="saveProfile()">Save Changes</button>
+      </div>
+      <div id="acc-section-orders" style="display:none">
+        <h2>My Orders</h2>
+        <div id="orders-list"></div>
+      </div>
+      <div id="acc-section-password" style="display:none">
+        <h2>Change Password</h2>
+        <div id="pwd-msg" class="msg"></div>
+        <div class="form-group"><label>Current Password</label><input type="password" id="pwd-current" placeholder="Current password"></div>
+        <div class="form-group"><label>New Password</label><input type="password" id="pwd-new" placeholder="New password"></div>
+        <button class="btn-primary" onclick="changePassword()">Update Password</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN ===== -->
+<div id="page-admin" class="page">
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h1>Admin Dashboard</h1>
+      <span style="font-size:13px;color:var(--text3)">ShopNest Management</span>
+    </div>
+    <div class="admin-stats">
+      <div class="stat-card"><div class="stat-label">Total Users</div><div class="stat-value" id="stat-users">5</div></div>
+      <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-value">142</div></div>
+      <div class="stat-card"><div class="stat-label">Revenue</div><div class="stat-value">₹2.4L</div></div>
+      <div class="stat-card"><div class="stat-label">Products</div><div class="stat-value">24</div></div>
+    </div>
+    <div class="admin-table-wrap">
+      <div class="admin-table-header">
+        <h3>All Users</h3>
+        <button class="btn-outline" style="padding:7px 16px;font-size:13px" onclick="renderAdminTable()">Refresh</button>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Username</th><th>Email</th><th>Role</th><th>Password</th><th>Action</th></tr></thead>
+        <tbody id="admin-users-tbody"></tbody>
+      </table>
+    </div>
+    <div style="margin-top:28px">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header"><h3>Import via XML</h3></div>
+        <div style="padding:24px">
+          <p style="font-size:13px;color:var(--text2);margin-bottom:14px">Paste product XML to bulk import</p>
+          <textarea id="xml-import" rows="5" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:12px;color:var(--text);font-size:13px;resize:vertical" placeholder="<?xml version=&quot;1.0&quot;?><products><product><name>Item</name><price>999</price></product></products>"></textarea>
+          <button class="btn-primary" onclick="parseXMLImport()" style="margin-top:12px">Import Products</button>
+          <div id="xml-result" class="msg" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">ShopNest</div>
+      <div class="footer-tagline">Your premium destination for curated products. Quality, value, and exceptional service — every order, every time.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">Electronics</a><a href="#">Fashion</a><a href="#">Home & Living</a><a href="#">Accessories</a>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <a href="#">FAQ</a><a href="#">Shipping</a><a href="#">Returns</a><a href="#">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#" onclick="showPage('about')">About</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Blog</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 ShopNest Pvt Ltd. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service · Cookie Policy</span>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
